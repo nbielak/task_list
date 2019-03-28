@@ -85,7 +85,7 @@ class Tasks extends React.Component {
                 handleClick={this.handleGroupClick} 
                 groups={this.state.groups} />
         return (
-            <div>
+            <div className="content">
                 {content}
             </div>
         );

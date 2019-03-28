@@ -12,15 +12,15 @@ const taskGroupIndexItem = ({group, name, handleClick}) => {
         return counter;
     }
     return(
-        <div onClick={handleClick}>
-            <div>
-                <img src={groupSVG}/>
+        <div className="index-item" onClick={handleClick}>
+            <div className="svg-container">
+                <img className="group" src={groupSVG}/>
             </div>
-            <div>
-                <div>
+            <div className="index-item-info">
+                <div className="name">
                     {name}
                 </div>
-                <div>
+                <div className="completed">
                     {numCompletedTasks()} OF {numTasks} TASKS COMPLETE
                 </div>
             </div>

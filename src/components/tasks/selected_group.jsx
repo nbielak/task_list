@@ -3,18 +3,17 @@ import TaskIndexItem from './task_index_item';
 
 const selectedGroup = ({group, name, resetSelected, allTasks, handleClick}) => {
     return (
-        <div>
-            <div>
+        <div className="index-container">
+            <div className="header">
                 <h1>{name}</h1>
-                <button onClick={resetSelected}>
+                <button className="all-groups" onClick={resetSelected}>
                     All Groups
                 </button>
             </div>
-            <div>
-                {group.map(task => {
-                    return (<TaskIndexItem key={task.id} handleClick={handleClick} allTasks={allTasks} task={task}/>);
-                })}
-            </div>
+            {group.map(task => {
+                return (<TaskIndexItem key={task.id} handleClick={handleClick} allTasks={allTasks} task={task}/>);
+            })}
+
         </div>
     )
 }

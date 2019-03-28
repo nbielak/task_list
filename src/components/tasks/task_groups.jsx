@@ -3,8 +3,8 @@ import TaskGroupIndexItem from './task_group_index_item';
 
 const taskGroups = ({groups, handleClick}) => {
     return(
-        <div>
-            <div>
+        <div className="index-container">
+            <div className="header">
                 <h1>Things To Do</h1>
             </div>
             {Object.keys(groups).map(name => {

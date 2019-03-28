@@ -3,7 +3,7 @@ import {Route, Switch} from 'react-router-dom';
 import Tasks from './tasks/tasks';
 
 const Root = () => (
-    <div>
+    <div className="main-content">
         <Switch>
             <Route path="/" component={Tasks}/>
         </Switch>
