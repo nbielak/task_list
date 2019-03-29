@@ -1,68 +1,124 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Task List
 
-## Available Scripts
+Live Link
 
-In the project directory, you can run:
+## Schema
+----
 
-### `npm start`
+### `Groups`
+|Col Name    |Data Type |Details
+|----------------|:--------:|:-------------------------:|
+|`id`             |integer   | not null, unique, primary
+|`name`           |string    | not null, unique, idx
+|`created_at`     |datetime  | not null
+|`updated_at`     |datetime  | not null
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* `index` on `name, unique: true`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+### `Tasks`
+|Col Name    |Data Type |Details
+|----------------|:--------:|:-------------------------:|
+|`id`             |integer   | not null, unique, primary
+|`task`           |string    | not null, unique, idx
+|`group_id`       |integer   | not null, unique, idx
+|`locked_status`  |boolean   | not null
+|`completed_at`   |datetime  | 
+|`created_at`     |datetime  | not null
+|`updated_at`     |datetime  | not null
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* `group_id` references `groups`
+* `index` on `task, unique: true`
+* `index` on `group_id, unique: true`
 
-### `npm run build`
+___
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `Dependencies`
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+|Col Name    |Data Type |Details
+|----------------|:--------:|:-------------------------:|
+|`id`             |integer   | not null, unique, primary
+|`parent_id`      |integer   | not null, idx
+|`child_id`       |integer   | not null, idx
+|`created_at`     |datetime  | not null
+|`updated_at`     |datetime  | not null
 
-### `npm run eject`
+* `parent_id` references `tasks`
+* `child_id` references `tasks`
+* `index` on `parent_id`
+* `index` on `child_id`
+* `index` on `[parent_id, child_id], unique: true`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Check/Uncheck API Documention
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Method: `PATCH`
 
-## Learn More
+URL: `/api/tasks/:id`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Parameters
 
-### Code Splitting
+|Param           |Data Type |Details
+|----------------|:--------:|:-------------------------:|
+|`id`             |integer   | numeric id of task
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+---
 
-### Analyzing the Bundle Size
+### Request
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+#### Headers
 
-### Making a Progressive Web App
+`Content-Type:application/json`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+#### Body
 
-### Advanced Configuration
+```js
+{
+    "id": 1,
+    "completedAt": "Thu Mar 28 2019 21:36:25 GMT-0700"
+}
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+---
 
-### Deployment
+### Response: 200
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+#### Headers
 
-### `npm run build` fails to minify
+`Content-Type:application/json`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### Body
+
+```js
+{
+    "id": 1,
+    "task": "get food",
+    "groupId": 1,
+    "lockedStatus": false,
+    "completedAt": "Thu Mar 28 2019 21:36:25 GMT-0700"
+}
+```
+
+---
+
+### Response: 401
+
+#### Headers
+
+`Content-Type:application/json`
+
+#### Body
+
+```js
+{
+    "error": "error.unauthorized"
+}
+```
+

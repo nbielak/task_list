@@ -8,7 +8,7 @@ const taskGroups = ({groups, handleClick}) => {
                 <h1>Things To Do</h1>
             </div>
             {Object.keys(groups).map(name => {
-                return (<TaskGroupIndexItem handleClick={handleClick} name={name} group={groups[name]}/>)
+                return (<TaskGroupIndexItem key={name} handleClick={handleClick} name={name} group={groups[name]}/>)
             })}
         </div>
     )
