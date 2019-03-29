@@ -3,7 +3,6 @@
 Live Link
 
 ## Schema
-----
 
 ### `Groups`
 |Col Name    |Data Type |Details
@@ -54,8 +53,6 @@ ___
 ---
 
 ## Check/Uncheck API Documention
-
----
 
 Method: `PATCH`
 
